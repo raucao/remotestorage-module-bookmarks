@@ -8,7 +8,7 @@
  */
 
 var md5 = require('js-md5');
-var RemoteStorage = require('remotestoragejs');
+var Bookmarks = function(RemoteStorage){
 
 RemoteStorage.defineModule('bookmarks', function (privateClient, publicClient) {
 
@@ -206,4 +206,9 @@ RemoteStorage.defineModule('bookmarks', function (privateClient, publicClient) {
   return { exports: bookmarks };
 
 });
+}
 
+if(typeof RemoteStorage !== 'undefined')
+  bookmarks(RemoteStorage);
+else
+  module.exports = Bookmarks
