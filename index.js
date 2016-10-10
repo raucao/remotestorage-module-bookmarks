@@ -7,6 +7,7 @@
  * This module stores bookmarks. It is used by https://webmarks.5apps.com/
  */
 
+var intersection = require('lodash.intersection');
 var md5 = require('js-md5');
 var Bookmarks = function(RemoteStorage){
 
@@ -157,6 +158,20 @@ RemoteStorage.defineModule('bookmarks', function (privateClient, publicClient) {
           });
       },
 
+      searchByUrl: function(url) {
+        var id = this.idForUrl(url);
+        var path = "archive/" + id;
+
+        return privateClient.getObject(path);
+      },
+      searchByTags: function(tags) {
+        return this.getAll()
+          .then( bookmarks => {
+            if (!bookmarks) return []
+            return bookmarks.filter( b => b.tags && intersection(b.tags, tags).length )
+          })
+      },
+
       store: function(bookmark) {
         bookmark.id = urlHash(bookmark.url);
         if (bookmark.createdAt) {
@@ -209,6 +224,6 @@ RemoteStorage.defineModule('bookmarks', function (privateClient, publicClient) {
 }
 
 if(typeof RemoteStorage !== 'undefined')
-  bookmarks(RemoteStorage);
+  Bookmarks(RemoteStorage);
 else
   module.exports = Bookmarks
