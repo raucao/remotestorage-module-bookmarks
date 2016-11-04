@@ -12,7 +12,19 @@ module.exports = {
     filename: __dirname + '/dist/build.js',
     libraryTarget: 'umd'
   },
-  externals: [ 'xmlhttprequest', 'remotestoragejs' ],
+  externals: {
+    "remotestoragejs": {
+      root: "RemoteStorage", // <script src='remotestorage.js'> will resolve in this.RemoteStorage
+      commonjs2: "remotestoragejs", // require('remotestoragejs')
+      commonjs: "remotestoragejs", // require('remotestoragejs')
+      amd: "remotestoragejs" // define(['remotestoragejs'], ...)
+    }
+  },
+  module: {
+    loaders: [
+      { test: /\.js$/, exclude: '/node_modules|dist/', loader: 'babel?presets[]=es2015' },
+    ]
+  },
   resolve: {
     extensions: ['', '.js']
   },

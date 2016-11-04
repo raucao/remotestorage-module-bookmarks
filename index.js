@@ -8,8 +8,8 @@
  */
 
 var intersection = require('lodash.intersection');
-var md5 = require('js-md5');
-var Bookmarks = function(RemoteStorage){
+var md5 = require('md5');
+var RemoteStorage = require('remotestoragejs');
 
 RemoteStorage.defineModule('bookmarks', function (privateClient, publicClient) {
 
@@ -158,12 +158,12 @@ RemoteStorage.defineModule('bookmarks', function (privateClient, publicClient) {
           });
       },
 
-      searchByUrl: function(url) {
+      searchByURL: function(url) {
         var id = this.idForUrl(url);
         var path = "archive/" + id;
-
         return privateClient.getObject(path);
       },
+
       searchByTags: function(tags) {
         return this.getAll()
           .then( bookmarks => {
@@ -221,9 +221,3 @@ RemoteStorage.defineModule('bookmarks', function (privateClient, publicClient) {
   return { exports: bookmarks };
 
 });
-}
-
-if(typeof RemoteStorage !== 'undefined')
-  Bookmarks(RemoteStorage);
-else
-  module.exports = Bookmarks
