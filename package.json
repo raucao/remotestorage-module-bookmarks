@@ -1,18 +1,21 @@
 {
   "name": "remotestorage-module-bookmarks",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "remoteStorage bookmarks module",
   "main": "./dist/build.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack -w",
-    "dist": "NODE_ENV=production webpack"
+    "dev": "webpack -w",
+    "build": "NODE_ENV=production webpack"
   },
   "author": "lesion <lesion@autistici.org> (http://lesion.github.io/)",
   "license": "ISC",
   "devDependencies": {
-    "js-md5": "^0.4.1",
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.7",
+    "babel-preset-es2015": "^6.18.0",
     "lodash.intersection": "^4.4.0",
+    "md5": "^2.2.1",
     "webpack": "^1.13.2"
   }
 }
