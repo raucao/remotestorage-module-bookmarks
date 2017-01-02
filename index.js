@@ -162,7 +162,6 @@ RemoteStorage.defineModule('bookmarks', function (privateClient, publicClient) {
       },
 
       searchByTags: function(tags) {
-        console.error('searchbytags', tags)
         return this.getAll()
           .then( bookmarks => {
             if (!bookmarks) return []
