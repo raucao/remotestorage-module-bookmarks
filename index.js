@@ -152,9 +152,6 @@ RemoteStorage.defineModule('bookmarks', function (privateClient, publicClient) {
             return Object.keys(bookmarks).map(function(id) {
               return bookmarks[id];
             });
-          },
-          function(error) {
-            console.log("Something bad happened: ", error);
           });
       },
 
@@ -165,6 +162,7 @@ RemoteStorage.defineModule('bookmarks', function (privateClient, publicClient) {
       },
 
       searchByTags: function(tags) {
+        console.error('searchbytags', tags)
         return this.getAll()
           .then( bookmarks => {
             if (!bookmarks) return []
