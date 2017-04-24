@@ -8,12 +8,20 @@
  */
 
 var intersection = require('lodash.intersection');
+
+var extend = function (target) {
+  var sources = Array.prototype.slice.call(arguments, 1);
+  sources.forEach(function (source) {
+    for (var key in source) {
+      target[key] = source[key];
+    }
+  });
+  return target;
+}
+
 var md5 = require('md5');
-var RemoteStorage = require('remotestoragejs');
 
-RemoteStorage.defineModule('bookmarks', function (privateClient, publicClient) {
-
-  var extend = RemoteStorage.util.extend;
+var Bookmarks = function (privateClient, publicClient) {
 
   //
   // Types/Schemas
@@ -130,7 +138,7 @@ RemoteStorage.defineModule('bookmarks', function (privateClient, publicClient) {
   //
 
   var bookmarks = {
-
+    name: 'bookmarks',
     archive: {
 
       find: function(id) {
@@ -145,7 +153,6 @@ RemoteStorage.defineModule('bookmarks', function (privateClient, publicClient) {
         return privateClient.getAll('archive/').then(
         // return privateClient.getAll('archive/', 'archive-bookmark').then(
           function(bookmarks) {
-            console.log('got archive bookmarks', bookmarks);
             if (!bookmarks) {
               return [];
             }
@@ -177,11 +184,9 @@ RemoteStorage.defineModule('bookmarks', function (privateClient, publicClient) {
           bookmark.createdAt = new Date().toISOString();
         }
         var path = "archive/" + bookmark.id;
-        console.log(bookmark);
 
         return privateClient.storeObject("archive-bookmark", path, bookmark).
           then(function() {
-            console.log(bookmark.id);
             return bookmark;
           });
       },
@@ -207,7 +212,7 @@ RemoteStorage.defineModule('bookmarks', function (privateClient, publicClient) {
   //
 
   var urlHash = function(url) {
-    url = url; //TODO remove trailing slash
+    // url = url; //TODO remove trailing slash
     return md5(url);
   };
 
@@ -217,4 +222,6 @@ RemoteStorage.defineModule('bookmarks', function (privateClient, publicClient) {
 
   return { exports: bookmarks };
 
-});
+};
+
+export default {name: 'bookmarks', builder: Bookmarks};
