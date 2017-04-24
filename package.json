@@ -1,6 +1,6 @@
 {
   "name": "remotestorage-module-bookmarks",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "remoteStorage bookmarks module",
   "main": "./dist/build.js",
   "scripts": {
