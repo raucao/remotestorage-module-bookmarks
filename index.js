@@ -149,8 +149,8 @@ var Bookmarks = function (privateClient, publicClient) {
         });
       },
 
-      getAll: function() {
-        return privateClient.getAll('archive/').then(
+      getAll: function(maxAge) {
+        return privateClient.getAll('archive/', maxAge).then(
         // return privateClient.getAll('archive/', 'archive-bookmark').then(
           function(bookmarks) {
             if (!bookmarks) {
