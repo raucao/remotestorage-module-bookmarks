@@ -9,6 +9,7 @@
     "dev": "webpack -w",
     "build": "NODE_ENV=production webpack"
   },
+  "repository": "github:lesion/remotestorage-module-bookmarks",
   "author": "lesion <lesion@autistici.org> (http://lesion.github.io/)",
   "license": "ISC",
   "devDependencies": {
