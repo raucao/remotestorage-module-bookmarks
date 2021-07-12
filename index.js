@@ -1,4 +1,4 @@
-const intersection = require('lodash.intersection');
+const md5 = require('md5');
 
 const extend = function (target) {
   const sources = Array.prototype.slice.call(arguments, 1);
@@ -9,8 +9,6 @@ const extend = function (target) {
   });
   return target;
 }
-
-const md5 = require('md5');
 
 const Bookmarks = function (privateClient, publicClient) {
 
@@ -161,9 +159,11 @@ const Bookmarks = function (privateClient, publicClient) {
 
       searchByTags: function(tags) {
         return this.getAll()
-          .then( bookmarks => {
+          .then(bookmarks => {
             if (!bookmarks) return []
-            return bookmarks.filter( b => b.tags && intersection(b.tags, tags).length )
+            return bookmarks.filter(b => {
+              return b.tags && b.tags.filter(tag => tags.includes(tag)).length > 0;
+            })
           })
       },
 
