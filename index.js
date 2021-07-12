@@ -10,7 +10,7 @@ const extend = function (target) {
   return target;
 }
 
-const Bookmarks = function (privateClient, publicClient) {
+const Bookmarks = function (privateClient/*, publicClient*/) {
 
   //
   // Types/Schemas
