@@ -1,33 +1,24 @@
-/**
- * File: Bookmarks
- *
- * Maintainer: - Sebastian Kippe <sebastian@kip.pe>
- * Version:    - 0.2.0
- *
- * This module stores bookmarks. It is used by https://webmarks.5apps.com/
- */
+const intersection = require('lodash.intersection');
 
-var intersection = require('lodash.intersection');
-
-var extend = function (target) {
-  var sources = Array.prototype.slice.call(arguments, 1);
+const extend = function (target) {
+  const sources = Array.prototype.slice.call(arguments, 1);
   sources.forEach(function (source) {
-    for (var key in source) {
+    for (const key in source) {
       target[key] = source[key];
     }
   });
   return target;
 }
 
-var md5 = require('md5');
+const md5 = require('md5');
 
-var Bookmarks = function (privateClient, publicClient) {
+const Bookmarks = function (privateClient, publicClient) {
 
   //
   // Types/Schemas
   //
 
-  var baseProperties = {
+  const baseProperties = {
     "id": {
       "type": "string"
     },
@@ -137,12 +128,12 @@ var Bookmarks = function (privateClient, publicClient) {
   // Public functions
   //
 
-  var bookmarks = {
+  const bookmarks = {
     name: 'bookmarks',
     archive: {
 
       find: function(id) {
-        var path = "archive/" + id;
+        const path = "archive/" + id;
 
         return privateClient.getObject(path).then(function(bookmark){
           return bookmark;
@@ -163,8 +154,8 @@ var Bookmarks = function (privateClient, publicClient) {
       },
 
       searchByURL: function(url) {
-        var id = this.idForUrl(url);
-        var path = "archive/" + id;
+        const id = this.idForUrl(url);
+        const path = "archive/" + id;
         return privateClient.getObject(path);
       },
 
@@ -183,7 +174,7 @@ var Bookmarks = function (privateClient, publicClient) {
         } else {
           bookmark.createdAt = new Date().toISOString();
         }
-        var path = "archive/" + bookmark.id;
+        const path = "archive/" + bookmark.id;
 
         return privateClient.storeObject("archive-bookmark", path, bookmark).
           then(function() {
@@ -192,7 +183,7 @@ var Bookmarks = function (privateClient, publicClient) {
       },
 
       remove: function(id) {
-        var path = "archive/" + id;
+        const path = "archive/" + id;
 
         return privateClient.remove(path);
       },
@@ -211,7 +202,7 @@ var Bookmarks = function (privateClient, publicClient) {
   // Helpers
   //
 
-  var urlHash = function(url) {
+  const urlHash = function(url) {
     // url = url; //TODO remove trailing slash
     return md5(url);
   };
