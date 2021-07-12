@@ -14,7 +14,7 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.js$/, exclude: '/node_modules|dist/', loader: 'babel?presets[]=es2015' },
+      { test: /\.js$/, exclude: '/^package|node_modules|dist/', loader: 'babel?presets[]=es2015' },
     ]
   },
   resolve: {
