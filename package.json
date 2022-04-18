@@ -1,12 +1,13 @@
 {
-  "name": "remotestorage-module-bookmarks",
+  "name": "@remotestorage/module-bookmarks",
   "version": "1.0.0",
+  "private": false,
   "keywords": [
     "remotestorage",
     "remotestorage-module",
     "bookmarks"
   ],
-  "description": "remoteStorage bookmarks module",
+  "description": "Bookmarks data module for remoteStorage.js",
   "main": "./dist/build.js",
   "scripts": {
     "build": "NODE_ENV=production webpack",
@@ -15,9 +16,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "version": "npm run build && git add dist/"
   },
-  "repository": "github:lesion/remotestorage-module-bookmarks",
+  "repository": "github:raucao/remotestorage-module-bookmarks",
   "author": "lesion <lesion@autistici.org> (http://lesion.github.io/)",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.14.8",
     "@babel/preset-env": "^7.14.9",
