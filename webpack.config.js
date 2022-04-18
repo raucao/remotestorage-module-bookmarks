@@ -1,24 +1,33 @@
-var webpack = require('webpack');
-var isProd = (process.env.NODE_ENV === 'production');
-
-// minimize only in production
-var plugins = isProd ? [new webpack.optimize.UglifyJsPlugin({minimize: true })] : []
+/* global __dirname */
+const isProd = (process.env.NODE_ENV === 'production');
+const path = require('path');
 
 module.exports = {
-  entry: './index.js',
-  // source map not in production
-  devtool: !isProd && 'source-map',
+  entry: ['./src/bookmarks.js'],
   output: {
-    filename: __dirname + '/dist/build.js',
-    libraryTarget: 'umd'
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'build.js',
+    library: 'Bookmarks',
+    libraryTarget: 'umd',
+    libraryExport: 'default',
+    umdNamedDefine: true,
+    globalObject: 'this'
   },
+  mode: isProd ? 'production' : 'development',
+  devtool: isProd ? 'source-map' : 'eval-source-map',
   module: {
-    loaders: [
-      { test: /\.js$/, exclude: '/node_modules|dist/', loader: 'babel?presets[]=es2015' },
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
+      },
     ]
   },
-  resolve: {
-    extensions: ['', '.js']
-  },
-  plugins: plugins
+  // plugins: plugins
 };
